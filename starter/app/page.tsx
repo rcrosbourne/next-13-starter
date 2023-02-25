@@ -1,15 +1,10 @@
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from './page.module.css'
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { getServerSession } from "next-auth/next";
-import AuthOptions from "@/app/register/AuthOptions";
-
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default async function Home() {
-  const session = await getServerSession(authOptions);
+export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -91,7 +86,6 @@ export default async function Home() {
           </p>
         </a>
       </div>
-      <AuthOptions />
     </main>
   )
 }

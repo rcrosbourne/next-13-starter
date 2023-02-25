@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.11",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@next/font": "13.1.6",
     "@prisma/client": "^4.10.1",
@@ -22,9 +23,13 @@
     "next-auth": "^4.19.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.2",
+    "swr": "^2.0.3",
     "zod": "^3.20.6"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "18.14.0",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",

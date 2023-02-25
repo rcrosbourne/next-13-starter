@@ -1,16 +1,18 @@
 import React from "react";
-import SignIn from "./signin";
+import Register from "./register";
 import { getServerSession } from "next-auth/next";
 import {getCsrfToken} from "next-auth/react";
 import {authOptions} from "@/pages/api/auth/[...nextauth]";
-import Link from "next/link";
 import { redirect } from 'next/navigation';
 const Page = async () => {
-  const session = await getServerSession(authOptions);
   const csrfToken = await getCsrfToken() || "";
-  if (session) {
-    redirect("/");
-  }
-  return <SignIn  csrfToken={csrfToken}/>;
+    const session = await getServerSession(authOptions);
+    if (session) {
+       redirect("/");
+    }
+  return <>
+      {!session && <Register csrfToken={csrfToken} /> }
+    </>;
 };
+
 export default Page;

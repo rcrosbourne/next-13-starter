@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 // import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -7,8 +7,8 @@ import jwt from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
 import { compare } from "bcryptjs";
 
-export default NextAuth({
-  pages: {
+export const authOptions: NextAuthOptions = {
+ pages: {
     signIn: "/auth/signin",
   },
   session: {
@@ -74,4 +74,5 @@ export default NextAuth({
     //       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     //     }),
   ],
-});
+}
+export default NextAuth(authOptions);
