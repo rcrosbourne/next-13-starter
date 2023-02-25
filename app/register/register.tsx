@@ -1,6 +1,5 @@
 "use client";
-import type { CtxOrReq } from "next-auth/client/_utils";
-import { getCsrfToken, signIn, useSession } from "next-auth/react";
+import { signIn} from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import type { FieldValues } from "react-hook-form";
@@ -24,8 +23,6 @@ const registerSchema = z
     path: ["passwordConfirm"],
   });
 export default function Register({ csrfToken }: { csrfToken: string }) {
-  // use create user mutation
-  const session = useSession();
   const router = useRouter();
   const { mutate, error } = useSWR("/api/createuser");
   const {
@@ -36,13 +33,6 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
   } = useForm({
     resolver: zodResolver(registerSchema),
   });
-
-  React.useEffect(() => {
-    // Sign in the user if they are already created
-    if (session && session.data?.user) {
-      void router.push("/");
-    }
-  }, [session, router]);
   async function createUser(data: { name: string; email: string; password: string }) {
     const result = await fetch("/api/createuser", {
       method: "POST",
@@ -56,8 +46,7 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
   const submitHandler = async (data: FieldValues) => {
     const { email, password, name } = data;
     // create user
-    const newUser = await createUser({ email, password, name });
-    console.log(newUser);
+    await createUser({ email, password, name });
     const status = await signIn("credentials", {
             email: data.email,
             password: data.password,
@@ -70,7 +59,6 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
     if (status && status.ok && status.url) {
       await router.push(status.url);
     }
-
   };
   return (
     <>
@@ -192,11 +180,4 @@ export default function Register({ csrfToken }: { csrfToken: string }) {
       </div>
     </>
   );
-}
-
-export async function getServerSideProps(context: CtxOrReq) {
-  const csrfToken = await getCsrfToken(context);
-  return {
-    props: { csrfToken },
-  };
 }

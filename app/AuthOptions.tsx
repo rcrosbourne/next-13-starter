@@ -1,11 +1,10 @@
 "use client"
 import React from "react";
-import {signIn, signOut, useSession} from "next-auth/react";
+import {signOut} from "next-auth/react";
 import Link from "next/link";
+import {Session} from "next-auth";
 
-export default function AuthOptions() {
-    const { data: session, status } = useSession();
-    // add links to sign in and sign out based on the session
+export default function AuthOptions({session}: {session: Session|null}) {
     return (
         <div>
             {session && (
@@ -18,7 +17,7 @@ export default function AuthOptions() {
                 <>
                     Not signed in <br />
                     <Link href="/auth/signin">Sign in</Link>
-                    <Link href="/register">Register</Link>
+                    <Link href="/register/register">Register</Link>
                 </>
             )}
         </div>

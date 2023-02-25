@@ -1,12 +1,10 @@
 "use client";
-import { getCsrfToken, getSession, signIn } from "next-auth/react";
-import type { CtxOrReq } from "next-auth/client/_utils";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {useRouter} from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const signInSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -14,7 +12,7 @@ const signInSchema = z.object({
     .string()
     .min(6, { message: "Password must be at least 6 characters" }),
 });
-export default function Signin({ csrfToken }: { csrfToken: string }) {
+export default function SignIn({ csrfToken }: { csrfToken: string }) {
   const {
     register,
     handleSubmit,
@@ -37,7 +35,7 @@ export default function Signin({ csrfToken }: { csrfToken: string }) {
       return;
     }
     // redirect to home page
-    await router.push("/");
+    await router.push(status?.url || "/");
   };
   return (
     <>
@@ -106,11 +104,4 @@ export default function Signin({ csrfToken }: { csrfToken: string }) {
       </div>
     </>
   );
-}
-
-export async function getServerSideProps(context: CtxOrReq) {
-  const csrfToken = await getCsrfToken(context);
-  return {
-    props: { csrfToken },
-  };
 }

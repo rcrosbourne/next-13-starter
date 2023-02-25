@@ -6,13 +6,12 @@ import {authOptions} from "@/pages/api/auth/[...nextauth]";
 import { redirect } from 'next/navigation';
 const Page = async () => {
   const csrfToken = await getCsrfToken() || "";
-    const session = await getServerSession(authOptions);
-    if (session) {
-       redirect("/");
-    }
-  return <>
-      {!session && <Register csrfToken={csrfToken} /> }
-    </>;
+  const session = await getServerSession(authOptions);
+  if (session) {
+    redirect("/");
+    return;
+  }
+  return <Register csrfToken={csrfToken} />;
 };
 
 export default Page;

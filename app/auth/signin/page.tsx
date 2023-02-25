@@ -3,7 +3,6 @@ import SignIn from "./signin";
 import { getServerSession } from "next-auth/next";
 import {getCsrfToken} from "next-auth/react";
 import {authOptions} from "@/pages/api/auth/[...nextauth]";
-import Link from "next/link";
 import { redirect } from 'next/navigation';
 const Page = async () => {
   const session = await getServerSession(authOptions);

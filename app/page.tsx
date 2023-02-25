@@ -3,7 +3,7 @@ import { Inter } from '@next/font/google'
 import styles from './page.module.css'
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import AuthOptions from "@/app/register/AuthOptions";
+import AuthOptions from "@/app/AuthOptions";
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -91,7 +91,7 @@ export default async function Home() {
           </p>
         </a>
       </div>
-      <AuthOptions />
+      <AuthOptions session={session}/>
     </main>
   )
 }
