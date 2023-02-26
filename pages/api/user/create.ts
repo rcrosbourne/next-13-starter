@@ -13,6 +13,7 @@ const errorSchema = z.object({
 });
 type Data = z.infer<typeof responseSchema>;
 type Error = z.infer<typeof errorSchema>;
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data | Error>) {
   if (req.method !== "POST") {
     res.status(405).json({ message: "Method not allowed" });

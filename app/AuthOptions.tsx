@@ -17,7 +17,7 @@ export default function AuthOptions({session}: {session: Session|null}) {
                 <>
                     Not signed in <br />
                     <Link href="/auth/signin">Sign in</Link>
-                    <Link href="/register/register">Register</Link>
+                    <Link href="/register">Register</Link>
                 </>
             )}
         </div>
